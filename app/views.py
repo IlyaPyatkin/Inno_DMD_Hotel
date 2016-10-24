@@ -3,7 +3,6 @@ from app import app
 
 
 @app.route('/')
-@app.route('/index')
 def index():
     user = {'nickname': 'Sam'}
     return render_template("index.html",
