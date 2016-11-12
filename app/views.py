@@ -1,26 +1,78 @@
-from flask import render_template
+from flask import render_template, request, session, redirect, url_for, flash
+import re
+
 from app import app
 from db import run_query
+from passlib.apps import custom_app_context as pwd_context
+
+user_re = re.compile("^[a-z0-9_-]{3,16}$")
+pass_re = re.compile("^[a-z0-9_-]{6,18}$")
 
 
 @app.route('/')
 def index():
-    name = run_query('SELECT name FROM person '
-                     'ORDER BY name ASC LIMIT 1')
-    user = {'nickname': name[0][0]}
+    if 'username' in session:
+        user = session['username']
+    else:
+        user = 'guest'
     return render_template("index.html",
-                           title='Home',
                            user=user)
 
 
-@app.route('/table/<table>')
-def show_table(table):
-    rows = run_query("SELECT * FROM " + table)
-    columns = run_query("SELECT column_name " +
-                        "FROM information_schema.columns " +
-                        "WHERE table_name = '" + table + "'")
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
 
-    return render_template("table.html",
-                           rows=rows,
-                           columns=columns,
-                           table=table)
+        # Check that user exists first
+        pwd_hash = run_query("""SELECT hash FROM person
+                                WHERE username = '%s'""" % request.form['username'])[1]
+        if pwd_hash:
+            if pwd_context.verify(request.form['password'], pwd_hash[0][0]):
+                # If login successful
+                session['username'] = request.form['username']
+                return redirect(url_for('index'))
+        return render_template("login.html",
+                               error='Invalid credentials')
+
+    return render_template("login.html")
+
+
+@app.route('/signup', methods=['GET', 'POST'])
+def signup():
+    if request.method == 'POST':
+        pwd_hash = pwd_context.encrypt(request.form['password'])
+        if re.match("^[a-z0-9_-]{3,16}$", request.form['username']):
+            return render_template("signup.html",
+                                   error="Invalid username")
+        if re.match("^[a-z0-9_-]{6,18}$", request.form['password']):
+            return render_template("signup.html",
+                                   error="Invalid password")
+
+        # Check that username is not taken;
+        run_query("""INSERT INTO person (username, hash)
+                     VALUES ('%s', '%s')""" % (request.form['username'], pwd_hash))
+        return redirect(url_for('login'))
+    return render_template("signup.html")
+
+
+@app.route('/logout')
+def logout():
+    if 'username' in session:
+        session['username'] = None
+    return redirect(url_for('index'))
+
+
+app.secret_key = b'7\xeb\xc8^\xc2~\xe4]p\x981NC\xee\xca\ndvc\x05\xec\xec\x18\x0c'
+
+
+# @app.route('/table/<table>', methods=['GET', 'POST'])
+# def show_table(table):
+#     rows = run_query("SELECT * FROM %s" % table)[1]
+#     columns = run_query("""SELECT column_name
+#                                FROM information_schema.columns
+#                                WHERE table_name = '%s'""" % table)[1]
+#
+#     return render_template("table.html",
+#                            table=table,
+#                            rows=rows,
+#                            columns=columns)

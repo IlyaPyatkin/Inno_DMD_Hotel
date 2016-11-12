@@ -1,9 +1,9 @@
 import psycopg2
-import sys
 
 
 def run_query(query):
     connection = None
+    code = "Error"
     # print("Insert DB password:")
     # password = input()
     password = "rudlab"
@@ -16,16 +16,18 @@ def run_query(query):
         cursor.execute(query)
         connection.commit()
         output = cursor.fetchall()
+        code = "Success"
 
     except psycopg2.DatabaseError as e:
         print('Error %s' % e)
-        sys.exit(1)
+        output = e
 
     finally:
         if connection:
             connection.close()
 
-    return output
+    return (code, output)
+
 
 if __name__ == '__main__':
     print("Input your query:")
