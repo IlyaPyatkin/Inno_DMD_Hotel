@@ -29,5 +29,5 @@ def run_query(query):
 
 if __name__ == '__main__':
     print("Input your query:")
-    for row in run_query(input()):
+    for row in run_query(input())[1]:
         print(row)
