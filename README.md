@@ -4,7 +4,7 @@
 - install python 3.* and pip
 - run `$pip install virtualenv`
 - run `$virtualenv venv`
-- run `$\venv\Scripts\activate.bat`
+- run `$venv\Scripts\activate.bat`
 - run `$pip install -r requirements`
     
 **To launch the web-server:**
