@@ -4,8 +4,6 @@ import psycopg2
 def run_query(query):
     connection = None
     code = "Error"
-    # print("Insert DB password:")
-    # password = input()
     password = "rudlab"
 
     try:
@@ -26,7 +24,7 @@ def run_query(query):
         if connection:
             connection.close()
 
-    return (code, output)
+    return code, output
 
 
 if __name__ == '__main__':
