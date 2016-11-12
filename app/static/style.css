@@ -6,20 +6,27 @@ body {
 }
 
 #header {
+    position: absolute;
     width: 100%;
     background: #4CAF50;
     height: 50px;
     box-sizing: border-box;
-    border-bottom: 50px;
 }
 
 #wrap {
     background-color: white;
-    height: auto;
-    min-height: 100%;
-    min-width: 620px;
+    height: 100%;
+    min-width: 270px;
     max-width: 1110px;
     margin: 0 auto;
+}
+
+#wrap-header-shift {
+    padding-bottom: 50px;
+}
+
+#greetings {
+    text-align: center;
 }
 
 table {
@@ -87,8 +94,7 @@ button.big {
 }
 
 #login_spacer {
-    max-height: 200px;
-    height: 10%;
+    height: 20%;
 }
 
 #login_form {
