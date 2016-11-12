@@ -1,24 +1,21 @@
-<html>
-<head>
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='table.css') }}">
-    <title>Table - {{ table }}</title>
-</head>
-<body>
-<table>
-    <tr>{% for column in columns %}
-        <th>{{ column[0] }}</th>
-    {% endfor %}</tr>
-
-    {% for row in rows %}
-        <tr>{% for attr in row %}
-            <td>{{ attr }}</td>
+{% extends "base.html" %}
+{% block body %}
+    <table>
+        <tr>{% for column in columns %}
+            <th>{{ column[0] }}</th>
         {% endfor %}</tr>
-    {% endfor %}
 
-    <tr>{% for column in columns %}
-        <td><div><input type="text" name={{ column[0] }}></div></td>
-    {% endfor %}</tr>
-</table>
-<input type="submit" value="Submit">
-</body>
-</html>
+        {% for row in rows %}
+            <tr>{% for attr in row %}
+                <td>{{ attr }}</td>
+            {% endfor %}</tr>
+        {% endfor %}
+
+        <tr>{% for column in columns %}
+            <td>
+                <div><input type="text" name={{ column[0] }}></div>
+            </td>
+        {% endfor %}</tr>
+    </table>
+    <input type="submit" value="Submit">
+{% endblock %}
