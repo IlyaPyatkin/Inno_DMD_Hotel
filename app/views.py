@@ -21,9 +21,9 @@ def index():
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+    if 'username' in session:
+        return redirect(url_for('index'))
     if request.method == 'POST':
-
-        # Check that user exists first
         pwd_hash = run_query("""SELECT hash FROM person
                                 WHERE username = '%s'""" % request.form['username'])[1]
         if pwd_hash:
@@ -33,32 +33,39 @@ def login():
                 return redirect(url_for('index'))
         return render_template("login.html",
                                error='Invalid credentials')
-
     return render_template("login.html")
 
 
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
+    if 'username' in session:
+        return redirect(url_for('index'))
     if request.method == 'POST':
-        pwd_hash = pwd_context.encrypt(request.form['password'])
-        if re.match("^[a-z0-9_-]{3,16}$", request.form['username']):
+        if not re.match("^[a-z0-9_-]{3,16}$", request.form['username']):
             return render_template("signup.html",
                                    error="Invalid username")
-        if re.match("^[a-z0-9_-]{6,18}$", request.form['password']):
+        if not re.match("^[a-z0-9_-]{6,18}$", request.form['password']):
             return render_template("signup.html",
                                    error="Invalid password")
+        if run_query("SELECT * FROM person WHERE username = '%s'" % request.form['username'])[1]:
+            return render_template("signup.html",
+                                   error="Username is already taken")
 
-        # Check that username is not taken;
+        pwd_hash = pwd_context.encrypt(request.form['password'])
         run_query("""INSERT INTO person (username, hash)
                      VALUES ('%s', '%s')""" % (request.form['username'], pwd_hash))
-        return redirect(url_for('login'))
+
+        # Automatically login
+        session['username'] = request.form['username']
+        return redirect(url_for('index'))
+
     return render_template("signup.html")
 
 
 @app.route('/logout')
 def logout():
     if 'username' in session:
-        session['username'] = None
+        del session['username']
     return redirect(url_for('index'))
 
 
