@@ -121,3 +121,15 @@ a:hover {
     text-align: center;
     margin: 15px;
 }
+
+#left-header {
+    float:left;
+    height: 100%;
+}
+
+#right-header {
+    float:right;
+    padding: 16px 10px;
+    font-weight: bold;
+
+}

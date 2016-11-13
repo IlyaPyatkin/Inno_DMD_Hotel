@@ -1,2 +1,13 @@
 <div id="header">
+    <div id="left-header"></div>
+    <div id="right-header">
+        {% if 'username' in session %}
+            <span>Logged in as {{ session['username'] }}</span>
+            <span><a href="/logout">Log out</a></span>
+        {% endif %}
+        {% if 'username' not in session %}
+        <span><a href="/login">Log in</a></span>
+        <span><a href="/signup">Sign up</a></span>
+        {% endif %}
+    </div>
 </div>
