@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block body %}
     <div id="login_spacer"></div>
-    <div class="shadow_block">
+    <div class="shadow_block" id="login_block">
         <form action="" method="post" id="login_form">
             <h2 class="login_header">Sign up to InnoHotel</h2>
             {% if error %}
@@ -9,7 +9,7 @@
             {% endif %}
             {% include "login_form.html" %}
             <button type="submit" class="big">Sign up</button>
-            <span id="login_extra">Already have an account? <a href="/login">Log in</a></span>
+            <span id="login_extra">Already have an account? <a href="/login" class="login">Log in</a></span>
         </form>
     </div>
 {% endblock %}
