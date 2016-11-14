@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% block body %}
+    <div id="login_spacer"></div>
+    <div id="manager_wrap">
+        <div id="manager_block_middle">
+            <div class="shadow_block">
+                <p class="manager_title"><a class="login" href="/">Add new order</a></p>
+            </div>
+        </div>
+        <div id="manager_block_left">
+            <div class="shadow_block">
+                <p class="manager_title">Check in</p>
+            </div>
+
+            <div class="shadow_block" style="width: 80%">
+                <div class="manager_block_inner">
+                    <div style="text-align: center; font-size: 1.2em;">Alexander</div>
+                    <div style="text-align: center; font-size: 1.2em;">Flask</div>
+                    <div style="text-align: center; font-size: 1.2em;"> MAY 31th - 12:00</div>
+                    <div style="text-align: center; font-size: 1.2em;"> Room: 420 VIP</div>
+
+                </div>
+                <form action="" method="post">
+                    <input type="hidden" name="bid" value="0">
+                    <button type="submit" class="full">CHECK IN</button>
+                </form>
+            </div>
+
+            <div class="shadow_block">
+                <p class="manager_title">< 1 2 3 .. ></p>
+            </div>
+        </div>
+        <div id="manager_block_right">
+            <div class="shadow_block">
+                <p class="manager_title">Check out</p>
+            </div>
+
+            <div class="shadow_block" style="width: 80%">
+                <div class="manager_block_inner">
+                    <div style="text-align: center; font-size: 1.2em;">Alexander</div>
+                    <div style="text-align: center; font-size: 1.2em;">Flask</div>
+                    <div style="text-align: center; font-size: 1.2em;"> MAY 31th - 12:00</div>
+                    <div style="text-align: center; font-size: 1.2em;"> Room: 420 VIP</div>
+
+                </div>
+                <form action="" method="post">
+                    <input type="hidden" name="bid" value="0">
+                    <button type="submit" class="full">CHECK IN</button>
+                </form>
+            </div>
+
+            <div class="shadow_block">
+                <p class="manager_title">< 1 2 3 .. ></p>
+            </div>
+
+        </div>
+    </div>
+{% endblock %}
