@@ -1,13 +1,13 @@
 <div id="header">
-    <div id="left-header"></div>
-    <div id="right-header">
-        {% if 'username' in session %}
-            <span>Logged in as {{ session['username'] }}</span>
-            <span><a href="/logout">Log out</a></span>
-        {% endif %}
-        {% if 'username' not in session %}
-        <span><a href="/login">Log in</a></span>
-        <span><a href="/signup">Sign up</a></span>
-        {% endif %}
+    <div id="header-wrap">
+        <div id="left-header"><a href="/" class="logo header">InnoHotel</a></div>
+        <div id="right-header">
+            {% if 'username' in session %}
+                <span><a href="/logout" class="header" id="logout">Log out</a></span>
+            {% else %}
+                <span><a href="/login" class="header">Log in</a></span>
+                <span><a href="/signup" class="header" id="signup">Sign up</a></span>
+            {% endif %}
+        </div>
     </div>
 </div>
