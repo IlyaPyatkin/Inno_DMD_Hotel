@@ -4,6 +4,7 @@ from passlib.apps import custom_app_context as pwd_context
 from app import app
 from app.model.DBQuery import DBQuery
 from app.model.User import User
+from app.model.Booked import Booked
 
 
 def logged_in():
@@ -30,7 +31,7 @@ def index():
                            user=user)
 
 
-@app.route('/login', methods=['GET', 'POST'])
+@app.route('/login/', methods=['GET', 'POST'])
 def login():
     if logged_in():
         return redirect(url_for('index'))
@@ -52,7 +53,7 @@ def login():
                            session=session)
 
 
-@app.route('/signup', methods=['GET', 'POST'])
+@app.route('/signup/', methods=['GET', 'POST'])
 def signup():
     if logged_in():
         return redirect(url_for('index'))
@@ -92,17 +93,38 @@ def signup():
     return render_template("signup.html")
 
 
-@app.route('/logout')
+@app.route('/logout/')
 def logout():
     log_out()
     return redirect(url_for('index'))
 
 
-@app.route('/manager', methods=['GET', 'POST'])
+@app.route('/manager/', methods=['GET', 'POST'])
 def manager():
     if not logged_in() or session['role'] < User.ROLE_MANAGER:
         return error404(404)
-    return render_template("manager.html")
+    check_ins = []
+    check_outs = []
+
+    query_check_in = Booked.query_check_in()
+    query_check_out = Booked.query_check_out()
+    if query_check_in.code == DBQuery.CODE_OK:
+        if query_check_out.code == DBQuery.CODE_OK:
+            check_ins = query_check_in.result
+            check_outs = query_check_out.result
+            print(check_ins)
+            print(check_outs)
+            if request.method == 'POST':
+                print(request.form)
+                if 'check_in' in request.form:
+                    print('check in')
+                if 'check_out' in request.form:
+                    print('check out')
+        return render_template("manager.html",
+                               check_ins=check_ins,
+                               check_outs=check_outs)
+    return render_template("manager.html",
+                           error="An error occurred, try again later")
 
 
 @app.errorhandler(404)

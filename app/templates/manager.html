@@ -6,44 +6,51 @@
                 <p class="manager_title">Check in</p>
             </div>
 
-            <div class="shadow_block" style="width: 80%">
-                <div class="manager_block_inner">
-                    <div class="manager-info">Alexander</div>
-                    <div class="manager-info">Flask</div>
-                    <div class="manager-info">MAY 31th - 12:00</div>
-                    <div class="manager-info">420 VIP</div>
+            {% for check_in in check_ins %}
+                <div class="shadow_block" style="width: 80%">
+                    <div class="manager_block_inner">
+                        <div class="manager-info">{{ check_in[1] }}</div>
+                        <div class="manager-info">{{ check_in[2] }}</div>
+                        <div class="manager-info">{{ check_in[3] }}</div>
+                        <div class="manager-info">Room - {{ check_in[4] }}</div>
+                    </div>
+                    <form action="" method="post">
+                        <input type="hidden" name="bid" value={{ check_in[0] }}>
+                        <button type="submit" class="full" name="check_in">CHECK IN</button>
+                    </form>
                 </div>
-                <form action="" method="post">
-                    <input type="hidden" name="bid" value="0">
-                    <button type="submit" class="full">CHECK IN</button>
-                </form>
-            </div>
-
-            <div class="shadow_block">
-                <p class="manager_title">< 1 2 3 .. ></p>
-            </div>
+            {% endfor %}
+            {% if check_ins %}
+                <div class="shadow_block">
+                    <p class="manager_title">< 1 2 3 .. ></p>
+                </div>
+            {% endif %}
         </div>
         <div id="manager_block_right">
             <div class="shadow_block">
                 <p class="manager_title">Check out</p>
             </div>
 
-            <div class="shadow_block" style="width: 80%">
-                <div class="manager_block_inner">
-                    <div class="manager-info">Alexander</div>
-                    <div class="manager-info">Flask</div>
-                    <div class="manager-info">MAY 31th - 12:00</div>
-                    <div class="manager-info">420 VIP</div>
+            {% for check_out in check_outs %}
+                <div class="shadow_block" style="width: 80%">
+                    <div class="manager_block_inner">
+                        <div class="manager-info">{{ check_out[1] }}</div>
+                        <div class="manager-info">{{ check_out[2] }}</div>
+                        <div class="manager-info">{{ check_out[3] }}</div>
+                        <div class="manager-info">Room - {{ check_out[4] }}</div>
+                    </div>
+                    <form action="" method="post">
+                        <input type="hidden" name="bid" value={{ check_out[0] }}>
+                        <button type="submit" class="full" name="check_out">CHECK OUT</button>
+                    </form>
                 </div>
-                <form action="" method="post">
-                    <input type="hidden" name="bid" value="0">
-                    <button type="submit" class="full">CHECK OUT</button>
-                </form>
-            </div>
+            {% endfor %}
 
-            <div class="shadow_block">
-                <p class="manager_title">< 1 2 3 .. ></p>
-            </div>
+            {% if check_outs %}
+                <div class="shadow_block">
+                    <p class="manager_title">< 1 2 3 .. ></p>
+                </div>
+            {% endif %}
 
         </div>
     </div>
