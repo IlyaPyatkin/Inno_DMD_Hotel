@@ -61,10 +61,6 @@ a.logo:hover {
     margin: 0 auto;
 }
 
-#greetings {
-    text-align: center;
-}
-
 table {
     font-family: arial, sans-serif;
     #border-collapse: collapse;
@@ -137,7 +133,7 @@ button.big:hover {
     font-weight: bold;
 }
 
-#login_spacer {
+#base_spacer {
     height: 20%;
 }
 
@@ -233,4 +229,9 @@ button.full {
 
 button.full:hover {
     background-color: #414781;
+}
+
+.manager-info {
+    text-align: center;
+    font-size: 1.2em;
 }
