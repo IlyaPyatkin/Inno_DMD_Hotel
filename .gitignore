@@ -1,3 +1,7 @@
 .idea
 *.pyc
 venv
+/data.sql
+/setup.sql
+/restore_db.bat
+/.gitignore
