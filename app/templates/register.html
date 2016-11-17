@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block body %}
+    <div id="hotel_wrap">
+        {% for hotel in hotels.items() %}
+
+            <div class="shadow_block hotel_ticket"
+                 style="width: 95%; max-width: 300px; margin-bottom:20px; {% if hotels|length == 1 %}margin: 0 auto;float: none;{% endif %}">
+                <div class="manager_block_inner">
+                    <div class="manager-info" style="font-weight: bold">
+                        <div>{{ hotel[1]['title'] }}</div>
+                        <div style="display: inline-block">
+                            <div class="rating" style="width: {{ hotel[1]['rating']*15 }}"></div>
+                            <div class="rating empty" style="width: {{ 75-hotel[1]['rating']*15 }}"></div>
+                        </div>
+                    </div>
+                </div>
+                <form action="" method="post" class="hotel_form">
+                    <input type="hidden" name="hid" value={{ hotel[0] }}>
+                    {% for rtype in hotel[1]['rtypes'] %}
+                        <button type="submit" class="roomtype green" name="rtid" value={{ rtype[0] }}>{{ rtype[1] }}
+                            — {{ rtype[2] }}$
+                        </button>
+                    {% endfor %}
+                </form>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

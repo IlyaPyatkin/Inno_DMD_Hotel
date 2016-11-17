@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block body %}
+    <div class="shadow_block" id="index_wrap" style="margin-bottom: 50px">
+        {% if not fatal_error %}
+
+            <form action="" method="post" id="login_form" style="padding-top: 1px">
+                <h2 class="login_header">Confirm order</h2>
+                <div class="manager-info" style="font-weight: bold">
+                    <div>{{ title }}</div>
+                    <div style="display: inline-block">
+                        <div class="rating" style="width: {{ rating*15 }}"></div>
+                        <div class="rating empty" style="width: {{ 75-rating*15 }}"></div>
+                    </div>
+                </div>
+                <div class="manager-info">{{ address[0] }} - {{ address[1] }}</div>
+                <div class="manager-info">{{ address[2] }} - {{ address[3] }}</div>
+                <div class="manager-info">{{ rtype }} - {{ rid }}</div>
+
+
+                <div class="manager-info bold" style="margin-top: 10px">Check in:</div>
+                <div class="profile_line">
+                    <input type="text" class="profile time" value="{{ arrival }}" required disabled>
+                    <input type="time" class="profile time" name="checkin" required>
+                </div>
+                <div class="manager-info bold" style="margin-top: 5px">Check out:</div>
+                <div class="profile_line">
+                    <input type="text" class="profile time" value="{{ departure }}" required disabled>
+                    <input type="time" class="profile time" name="checkout" required>
+                </div>
+                <h2 class="login_header">Total: {{ cost }}$</h2>
+
+                {% if error %}
+                    <div class="error" id="login_error">{{ error }}</div>
+                {% endif %}
+                <button type="submit" class="big">Confirm</button>
+            </form>
+        {% endif %}
+        {% if fatal_error %}
+            <div class="error" id="login_error">{{ fatal_error }}</div>
+        {% endif %}
+    </div>
+{% endblock %}

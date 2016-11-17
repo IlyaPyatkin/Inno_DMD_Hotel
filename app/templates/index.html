@@ -1,6 +1,48 @@
 {% extends "base.html" %}
 {% block body %}
-    <div class="shadow_block">
-        <p class="manager_title">Welcome, {{ user }}</p>
+    <div class="shadow_block" id="index_wrap">
+        {% if not fatal_error %}
+
+            <form action="" method="post" id="login_form" style="padding-top: 20px">
+                <h2 class="login_header">Look for Hotels!</h2>
+                <div class="profile_line">
+                    <div class="profile_hint">Arrival:</div>
+                    <input type="date" class="profile date" name="arrival" min={{ today }} value={{ today }} required>
+                </div>
+                <div class="profile_line">
+                    <div class="profile_hint">Departure:</div>
+                    <input type="date" class="profile date" name="departure" min={{ tomorrow }} value={{ tomorrow }}
+                           required>
+                </div>
+                <div class="profile_line">
+                    <div class="profile_hint">City:</div>
+                    <select type="text" class="profile" size="1" name="city" required>
+
+                        {% for city in cities %}
+                            <option {% if city[0] == "China" %}selected="selected"{% endif %}>{{ city[0] }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="profile_line">
+                    <div class="profile_hint">People:</div>
+                    <select type="text" class="profile digit" name="people" required>
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        <option>5</option>
+                        <option>6</option>
+                    </select>
+                </div>
+
+                {% if error %}
+                    <div class="error" id="login_error">{{ error }}</div>
+                {% endif %}
+                <button type="submit" class="big">Search</button>
+            </form>
+        {% endif %}
+        {% if fatal_error %}
+            <div class="error" id="login_error">{{ fatal_error }}</div>
+        {% endif %}
     </div>
 {% endblock %}
