@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block body %}
+    <div id="index_wrap">
+        {% include "role_button.html" %}
+        <div class="shadow_block" id="profile_block">
+            <div class="selector_off_left" id="profile_selector_left">
+                <div class="selector_text">
+                    <a href="/orders" class="selector_link">Orders</a>
+                </div>
+            </div>
+            <div class="selector_on" id="profile_selector_right">
+                <div class="selector_text">
+                    <a href="/profile" class="selector_link">Profile</a>
+                </div>
+            </div>
+            <form action="" method="post" id="login_form" style="padding-top: 40px">
+                <h2 class="login_header">Your personal info</h2>
+                <div class="profile_line">
+                    <div class="profile_hint">First Name:</div>
+                    <div><input type="text" class="profile" name="fname" required value={{ fname }} ></div>
+                </div>
+                <div class="profile_line">
+                    <div class="profile_hint">Last Name:</div>
+                    <div><input type="text" class="profile" name="lname" required value={{ lname }} ></div>
+                </div>
+                <div class="profile_line">
+                    <div class="profile_hint">E-mail:</div>
+                    <div><input type="email" class="profile" name="email" required value={{ email }} ></div>
+                </div>
+                {% if error %}
+                    <div class="error" id="login_error">{{ error }}</div>
+                {% endif %}
+                <button type="submit" class="big">Save</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}

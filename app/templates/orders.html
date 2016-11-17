@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block body %}
+    <div id="index_wrap">
+        {% include "role_button.html" %}
+        <div class="shadow_block">
+            <div class="selector_on" id="profile_selector_left">
+                <div class="selector_text">
+                    <a href="/orders" class="selector_link">Orders</a>
+                </div>
+            </div>
+            <div class="selector_off_right" id="profile_selector_right">
+                <div class="selector_text">
+                    <a href="/profile" class="selector_link">Profile</a>
+                </div>
+            </div>
+            <div id="login_form" style="padding-top: 40px; padding-bottom: 1px;">
+                <h2 class="login_header">Your orders</h2>
+                {% if error %}
+                    <div class="error" id="login_error">{{ error }}</div>
+                {% endif %}
+            </div>
+        </div>
+
+        {% for order in orders %}
+            <div class="shadow_block" style="width: 80%;">
+                <div class="manager_block_inner">
+                    <div class="manager-info" style="font-weight: bold">
+                        <div>{{ order[1] }}</div>
+                        <div style="display: inline-block">
+                            <div class="rating" style="width: {{ order[7]*15 }}"></div>
+                            <div class="rating empty" style="width: {{ 75-order[7]*15 }}"></div>
+                        </div>
+
+                    </div>
+
+                    <div class="manager-info">Arrival: {{ order[2].strftime("%Y.%m.%d %H:%M") }}</div>
+                    <div class="manager-info">Departure: {{ order[3].strftime("%Y.%m.%d %H:%M") }}</div>
+                    <div class="manager-info">Room: {{ order[4] }} — {{ order[5] }}</div>
+                    <div class="manager-info">{{ order[6] }}$</div>
+                </div>
+                {% if not order[8] %}
+                    <form action="" method="post">
+                        <input type="hidden" name="bid" value={{ order[0] }}>
+                        <button type="submit" class="full red" name="cancel">CANCEL</button>
+                    </form>
+                {% endif %}
+            </div>
+        {% endfor %}
+    </div>
+
+
+{% endblock %}
