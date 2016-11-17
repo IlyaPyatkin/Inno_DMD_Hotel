@@ -19,6 +19,8 @@ body {
 #header-wrap {
     max-width: 800px;
     margin: 0 auto;
+    padding: 0 10px;
+    line-height: 50px;
 }
 
 #wrap-header-shift {
@@ -36,12 +38,10 @@ a.header:hover {
 
 #left-header {
     float: left;
-    padding: 6px 0 6px 10px;
 }
 
 #right-header {
     float: right;
-    padding: 16px 10px;
 }
 
 .logo {
@@ -56,7 +56,7 @@ a.logo:hover {
 #wrap {
     background-color: white;
     height: 100%;
-    min-width: 270px;
+    min-width: 290px;
     max-width: 1110px;
     margin: 0 auto;
 }
@@ -82,15 +82,14 @@ input.big_text {
     box-sizing: border-box;
     height: 35px;
     width: 100%;
-    max-width: 270px;
+    max-width: 290px;
     border-radius: 3px;
     border: 1px solid #d3d9de;
     margin-bottom: 15px;
 }
 
-button.big {
+.big {
     width: 100%;
-    max-width: 270px;
     border-radius: 3px;
     border: 1px solid #d3d9de;
     color: white;
@@ -102,7 +101,7 @@ button.big {
     margin-bottom: 15px;
 }
 
-button.big:hover {
+.big:hover {
     background-color: #357d35;
 }
 
@@ -120,17 +119,25 @@ button.big:hover {
     padding: 50px 0;
 }
 
+#manager_error {
+    padding: 30px;
+    margin: 30px auto;
+}
+
 #login_error {
+    padding: 15px 24px;
+}
+
+.error {
     border-radius: 3px;
     width: 100%;
-    max-width: 270px;
+    max-width: 290px;
     background: #ffefe9;
     border: 1px solid #f2ab99;
-    padding: 15px 24px;
-    box-sizing: border-box;
     margin-bottom: 15px;
     text-align: center;
     font-weight: bold;
+    box-sizing: border-box;
 }
 
 #base_spacer {
@@ -139,8 +146,15 @@ button.big:hover {
 
 #login_form {
     width: 100%;
-    max-width: 270px;
+    max-width: 290px;
     margin: 0 auto;
+}
+
+.hotel_form {
+    width: 100%;
+    max-width: 180px;
+    margin: 0 auto;
+    padding-bottom: 20px;
 }
 
 .login_header {
@@ -165,6 +179,34 @@ a.login:hover {
     margin: 15px;
 }
 
+.hotel_ticket {
+    margin: 0 20px;
+}
+
+@media (max-device-width: 716px) {
+
+    #hotel_wrap {
+        max-width: 380px;
+    }
+
+    .hotel_ticket {
+        float: none;
+        margin: auto auto 25px auto;
+    }
+}
+
+@media (min-device-width: 716px) {
+
+    #hotel_wrap {
+        max-width: 680px;
+    }
+
+    .hotel_ticket {
+        float: left;
+        margin: 0 20px;
+    }
+}
+
 @media (max-device-width: 632px) {
 
     #manager_block_left, #manager_block_right {
@@ -176,16 +218,36 @@ a.login:hover {
     #manager_block_left, #manager_block_right {
         max-width: 300px;
     }
+
     #manager_block_left {
         float: left;
     }
+
     #manager_block_right {
         float: right;
     }
 }
 
+@media (max-device-width: 480px) {
+    #username_extra {
+        display: none;
+    }
+}
+
 @media (max-device-width: 430px) {
     .header#signup {
+        display: none;
+    }
+}
+
+@media (max-device-width: 380px) {
+    #logout {
+        display: none;
+    }
+}
+
+@media (min-device-width: 380px) {
+    #logout_mini {
         display: none;
     }
 }
@@ -202,9 +264,24 @@ a.login:hover {
     margin: 0 auto;
     max-width: 700px;
     width: 95%;
+    padding-bottom: 20px;
+}
+
+#index_wrap {
+    margin: 0 auto;
+    max-width: 500px;
+    width: 95%;
+    padding-bottom: 20px;
+}
+
+#hotel_wrap {
+    margin: 0 auto;
+    width: 95%;
+    padding-bottom: 20px;
 }
 
 .manager_title {
+    margin: 0;
     font-weight: bold;
     text-align: center;
     font-size: 1.5em;
@@ -215,23 +292,183 @@ a.login:hover {
     padding: 15px;
 }
 
-button.full {
-    box-shadow: 0 1px 2px 0 #b7b8bb,0 -1px 2px 0 #b7b8bb;
-    width: 100%;
+button {
     border: 0;
     color: white;
-    background-color: #5a62af;
     font-size: 18px;
     cursor: pointer;
     font-weight: bold;
-    margin-bottom: 25px;
+    margin-bottom: 50px;
 }
 
-button.full:hover {
+button.roomtype {
+    box-shadow: 0 2px 0 0 #98999c, 0 0 0 1px #d7d8db;
+    width: 100%;
+    margin-bottom: 10px;
+    border-radius: 6px;
+    border: 1px solid #d3d9de;
+    height: 1.5em;
+}
+
+button.full {
+    box-shadow: 0 1px 2px 0 #b7b8bb, 0 -1px 2px 0 #b7b8bb;
+    width: 100%;
+}
+.profile_hint.time {
+    width: 24%;
+}
+
+button.purple {
+    background-color: #5a62af;
+}
+
+button.purple:hover {
     background-color: #414781;
+}
+
+button.green {
+    background-color: #51bc55;
+}
+
+button.green:hover {
+    background-color: #59da5d;
+}
+
+button.red {
+    background-color: #f23a3a;
+}
+
+button.red:hover {
+    background-color: #b82e2e;
 }
 
 .manager-info {
     text-align: center;
     font-size: 1.2em;
+    line-height: 1.5em;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+.profile_hint {
+    float: left;
+    font-size: 1.2em;
+    width: 38%;
+    text-align: right;
+    height: 35px;
+    line-height: 35px;
+    padding-right: 1em;
+}
+
+a#username {
+    margin: 0;
+}
+
+select, input.date, input.time {
+    -webkit-appearance: none;
+}
+
+.profile {
+    font-size: 14px;
+    padding: 6px 12px 8px;
+    box-sizing: border-box;
+    height: 35px;
+    width: 54%;
+    border-radius: 3px;
+    border: 1px solid #d3d9de;
+    margin-bottom: 15px;
+}
+
+select.profile.digit {
+    width: 13%;
+}
+
+input.profile.time {
+    margin: 0 7%;
+    width: 34%;
+}
+
+.selector_on {
+    background: white;
+}
+
+.selector_off_left {
+    box-shadow: inset -1px -1px 1px #d0d0d0;
+    background: #f5f5f5;
+}
+
+.selector_off_left:hover {
+    background: #f9f9f9;
+    box-shadow: inset -1px -1px 1px #dfdfdf;
+}
+
+.selector_off_right {
+    box-shadow: inset 1px -1px 1px #d0d0d0;
+    background: #f5f5f5;
+}
+
+.selector_off_right:hover {
+    background: #f9f9f9;
+    box-shadow: inset 1px -1px 1px #dfdfdf;
+}
+
+#profile_selector_left {
+    width: 50%;
+    max-width: 250px;
+    height: 40px;
+    float: left;
+    border-top-left-radius: 3px;
+}
+
+#profile_selector_right {
+    width: 50%;
+    max-width: 250px;
+    height: 40px;
+    float: right;
+    border-top-right-radius: 3px;
+}
+
+.selector_text {
+    font-size: 1.2em;
+    line-height: 40px;
+    text-align: center;
+}
+
+a.selector_link {
+    color: black;
+}
+
+#profile_block {
+    padding-bottom: 50px;
+}
+
+#orders_block {
+    width: 95%;
+}
+
+#role_button {
+    max-width: none;
+    box-shadow: 0 1px 0 0 #98999c, 0 0 0 1px #d7d8db;
+}
+
+.rating {
+    float: left;
+    margin-bottom: 15px;
+    background: url("stars.png") repeat;
+    height: 13px;
+    background-size: 15px;
+}
+
+#logout_mini {
+    height: 32px;
+    width: 32px;
+    background: url("logout.png") no-repeat;
+    background-size: 32px;
+    margin-top: 9px;
+}
+
+.rating.empty {
+    background-position-y: 13px;
 }

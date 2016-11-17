@@ -3,7 +3,14 @@
         <div id="left-header"><a href="/" class="logo header">InnoHotel</a></div>
         <div id="right-header">
             {% if 'username' in session %}
-                <span><a href="/logout" class="header" id="logout">Log out</a></span>
+                <div style="display: inline-block">
+                    <span id="username_extra">Logged in as </span><a href="/profile" class="header"
+                                                                     id="username">{{ session['username'] }}</a>
+                    <span><a href="/logout" class="header" id="logout">Log out</a></span>
+                </div>
+                <a href="/logout" style="display: inline-block; vertical-align: top;">
+                    <div id="logout_mini"></div>
+                </a>
             {% else %}
                 <span><a href="/login" class="header">Log in</a></span>
                 <span><a href="/signup" class="header" id="signup">Sign up</a></span>
