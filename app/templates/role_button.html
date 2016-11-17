@@ -1,0 +1,10 @@
+{% if session['role'] == 1 %}
+    <a href="/manager">
+        <button class="big" id="role_button">Manager panel</button>
+    </a>
+{% endif %}
+{% if session['role'] == 2 %}
+    <a href="/admin">
+        <button class="big" id="role_button">Admin panel</button>
+    </a>
+{% endif %}
