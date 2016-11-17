@@ -1,5 +1,6 @@
 
 **Installation for Windows:**
+- download [**SQL files**](https://drive.google.com/open?id=0B-KuNr2EmapuNmpWaC0zV21KT2M)
 - install PostgreSQL and run it on localhost
 - create db 'hotel', add chemas and data:
 - run `createdb -U postgres hotel`
