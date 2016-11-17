@@ -26,7 +26,7 @@ class User:
         if role == User.ROLE_MANAGER:
             return redirect(url_for('manager'))
         elif role == User.ROLE_ADMIN:
-            return redirect(url_for('manager'))
+            return redirect(url_for('admin'))
         return redirect(url_for('index'))
 
     @staticmethod

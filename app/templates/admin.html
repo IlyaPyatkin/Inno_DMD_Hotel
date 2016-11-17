@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block body %}
+    <div id="index_wrap">
+        <div class="shadow_block">
+            <div class="manager_block_inner">
+                <div class="manager-info bold">I/O index performance</div>
+            </div>
+        </div>
+        <table>
+            <tr>{% for column in IO_index_columns %}
+                <th>{{ column }}</th>
+            {% endfor %}</tr>
+            {% for row in IO_cache %}
+                <tr>{% for attr in row %}
+                    <td>{{ attr }}</td>
+                {% endfor %}</tr>
+            {% endfor %}
+        </table>
+            <div class="shadow_block">
+            <div class="manager_block_inner">
+                <div class="manager-info bold">I/O cache performance</div>
+            </div>
+        </div>
+        <table>
+            <tr>{% for column in IO_cache_columns %}
+                <th>{{ column }}</th>
+            {% endfor %}</tr>
+            {% for row in IO_index %}
+                <tr>{% for attr in row %}
+                    <td>{{ attr }}</td>
+                {% endfor %}</tr>
+            {% endfor %}
+        </table>
+        <div class="shadow_block">
+            <div class="manager_block_inner">
+                <div class="manager-info bold">Disk space usage</div>
+            </div>
+        </div>
+        <table>
+            <tr>{% for column in disk_columns %}
+                <th>{{ column }}</th>
+            {% endfor %}</tr>
+            {% for row in disk %}
+                <tr>{% for attr in row %}
+                    <td>{{ attr }}</td>
+                {% endfor %}</tr>
+            {% endfor %}
+        </table>
+    </div>
+{% endblock %}

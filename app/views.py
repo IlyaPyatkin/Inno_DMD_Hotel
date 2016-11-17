@@ -10,6 +10,7 @@ from app.model.Registration import Registration
 from app.model.Person import Person
 from app.model.Hotel import Hotel
 from app.model.RoomType import RoomType
+from app.model.Performance import Performance
 
 ERROR_MSG = "An error occurred, please try again later"
 
@@ -26,7 +27,10 @@ def log_in_as(username, role=User.ROLE_USER):
 def log_out():
     if logged_in():
         del session['username']
+    if 'role' in session:
         del session['role']
+    if 'search' in session:
+        del session['search']
 
 
 @app.route('/switch-user/<username>')
@@ -65,7 +69,7 @@ def detail():
         person_query = User.get_person_id(session['username'])
         if person_query.code == DBQuery.CODE_OK:
             if not person_query.result:
-                session['search'] = [arrival, departure, hid, rtid]
+                session['search'] = [arrival.strftime("%Y-%m-%d"), departure.strftime("%Y-%m-%d"), hid, rtid]
                 return redirect(url_for("profile", error="Please fill your profile info"))
             pid = person_query.result[0][0]
             arrival = datetime.datetime.combine(arrival, checkin)
@@ -133,6 +137,8 @@ def index():
                                 hid=session['search'][2],
                                 rtid=session['search'][3]))
     error = None
+    if 'error' in request.args:
+        error = request.args['error']
     if request.method == 'POST':
         for param in ('arrival', 'departure', 'city', 'people'):
             if param not in request.form:
@@ -311,7 +317,40 @@ def logout():
 def admin():
     if not logged_in() or session['role'] != User.ROLE_ADMIN:
         abort(404)
-    return """NOTHING TO SEE HERE"""
+
+    if request.method == 'POST':
+        if 'privileges' in request.form:
+            username = request.form['username']
+            role = request.form['role']
+        if 'add_employee' in request.form:
+            hid = request.form['username']
+            username = request.form['username']
+            salary = request.form['salary']
+            position = request.form['position']
+            status = request.form['status']
+        return ""
+
+    disk_performance = Performance.get_disk_performance()
+    i_o_performance_cache = Performance.get_io_cache_performance()
+    i_o_performance_index = Performance.get_io_index_performance()
+
+    disk_columns = ['table', 'index', 'table', 'total']
+    i_o_columns_cache = ['table', 'read', 'hit', 'ratio']
+    i_o_columns_index = ['table', 'read', 'hit', 'ratio']
+    if disk_performance.code == DBQuery.CODE_OK and \
+                    i_o_performance_cache.code == DBQuery.CODE_OK and \
+                    i_o_performance_index.code == DBQuery.CODE_OK:
+        if disk_performance.result and \
+                i_o_performance_cache.result and \
+                i_o_performance_index.result:
+            return render_template('admin.html',
+                                   IO_cache=i_o_performance_cache.result,
+                                   IO_cache_columns=i_o_columns_cache,
+                                   IO_index=i_o_performance_index.result,
+                                   IO_index_columns=i_o_columns_index,
+                                   disk=disk_performance.result,
+                                   disk_columns=disk_columns)
+    return render_template('admin.html')
 
 
 @app.route('/manager', methods=['GET', 'POST'])
@@ -359,16 +398,3 @@ def error404(e):
 
 
 app.secret_key = b'7\xeb\xc8^\xc2~\xe4]p\x981NC\xee\xca\ndvc\x05\xec\xec\x18\x0c'
-
-
-# @app.route('/table/<table>', methods=['GET', 'POST'])
-# def show_table(table):
-#     rows = run_query("SELECT * FROM %s" % table)[1]
-#     columns = run_query("""SELECT column_name
-#                                FROM information_schema.columns
-#                                WHERE table_name = '%s'""" % table)[1]
-#
-#     return render_template("table.html",
-#                            table=table,
-#                            rows=rows,
-#                            columns=columns)
