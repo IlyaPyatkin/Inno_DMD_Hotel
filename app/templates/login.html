@@ -4,7 +4,7 @@
         <form action="" method="post" id="login_form">
             <h2 class="login_header">Log in to InnoHotel</h2>
             {% if error %}
-                <div id="login_error" >{{ error }}</div>
+                <div class="error" id="login_error">{{ error }}</div>
             {% endif %}
             {% include "login_form.html" %}
             <button type="submit" class="big">Login</button>
