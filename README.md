@@ -1,12 +1,17 @@
 
-**Installation:**
-- install PostgreSQL and run it on localhost with db 'hotel'
+**Installation for Windows:**
+- install PostgreSQL and run it on localhost
+- create db 'hotel', add chemas and data:
+- run `createdb -U postgres hotel`
+- run `psql -U postgres hotel < setup.sql`
+- run `psql -U postgres hotel < data.sql`
 - install python 3.* and pip
-- run `$pip install virtualenv`
-- run `$virtualenv venv`
-- run `$venv\Scripts\activate.bat`
-- run `$pip install -r requirements`
+- go to the root of this project
+- run `pip install virtualenv`
+- run `virtualenv venv`
+- run `venv\Scripts\activate.bat`
+- run `pip install -r requirements`
     
 **To launch the web-server:**
-- run `$python run.py`
-- open `http://127.0.0.1:5000/`
+- run `python run.py`
+- open `http://localhost/`
